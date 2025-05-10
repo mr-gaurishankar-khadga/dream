@@ -28,7 +28,8 @@ const Register = ({ setAuth }) => {
 
   const checkUsernameAvailability = async (username) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/check-username/${username}`);
+     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/check-username/${username}`);
+
       const data = await response.json();
       setUsernameAvailable(data.available);
     } catch (err) {
@@ -54,7 +55,8 @@ const Register = ({ setAuth }) => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/users/register', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/register`, {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

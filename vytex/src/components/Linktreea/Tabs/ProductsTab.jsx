@@ -46,7 +46,8 @@ const ProductsTab = ({ profileData, onAddProduct, onDeleteProduct, showMessage }
                   // Make sure we use the full URL if it's a relative path
                   (product.imageUrl.startsWith('http') ? 
                     product.imageUrl : 
-                    `http://localhost:5000${product.imageUrl}`
+                    `${import.meta.env.VITE_BACKEND_URL}${product.imageUrl}`
+
                   ) : 
                   // Fallback to a default image
                   '/placeholder-product.jpg'

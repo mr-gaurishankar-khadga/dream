@@ -23,8 +23,8 @@ function Profile() {
           setIsLoading(false);
           return;
         }
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/profile/me`, {
 
-        const response = await fetch('http://localhost:5000/api/profile/me', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,

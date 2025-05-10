@@ -64,7 +64,8 @@ function Layout({ children }) {
         }
 
         // Fetch user profile
-        const response = await fetch('http://localhost:5000/api/profile/me', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/profile/me`, {
+
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -85,7 +86,7 @@ function Layout({ children }) {
           username: profileData.username,
           // Use the profileImage URL from the server, or fallback to default
           profileImage: profileData.profileImage ? 
-            `http://localhost:5000${profileData.profileImage}` : 
+            `${import.meta.env.VITE_BACKEND_URL}${profileData.profileImage}`: 
             defaultAvatar
         });
       } catch (error) {

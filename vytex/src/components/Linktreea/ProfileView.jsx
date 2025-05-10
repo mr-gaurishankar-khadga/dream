@@ -199,7 +199,8 @@ const ProfileView = ({ profileData }) => {
               src={profileData.profileImage ? 
                 (profileData.profileImage.startsWith('http') ? 
                   profileData.profileImage : 
-                  `http://localhost:5000${profileData.profileImage}`
+                  `${import.meta.env.VITE_BACKEND_URL}${profileData.profileImage}`
+
                 ) : 
                 '/default-avatar.png'
               } 

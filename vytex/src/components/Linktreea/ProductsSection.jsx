@@ -24,11 +24,13 @@ const ProductsSection = ({
         } 
         // Handle relative URLs with leading slash
         else if (product.imageUrl.startsWith('/')) {
-          imageUrl = `http://localhost:5000${product.imageUrl}`;
+          imageUrl = `${import.meta.env.VITE_BACKEND_URL}${product.imageUrl}`;
+
         } 
         // Handle relative URLs without leading slash
         else {
-          imageUrl = `http://localhost:5000/${product.imageUrl}`;
+          imageUrl = `${import.meta.env.VITE_BACKEND_URL}/${product.imageUrl}`;
+
         }
       }
       

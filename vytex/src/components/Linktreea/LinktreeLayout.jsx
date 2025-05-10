@@ -45,7 +45,8 @@ function LinktreeLayout() {
         endpoint = '/api/profile/demo'; // Change this to a default username that exists in your system
       }
       
-      const response = await fetch(`http://localhost:5000${endpoint}`, options);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}${endpoint}`, options);
+
       
       if (!response.ok) {
         throw new Error('Failed to fetch profile data');
@@ -68,7 +69,8 @@ function LinktreeLayout() {
         throw new Error('Authentication required');
       }
       
-      const response = await fetch('http://localhost:5000/api/profile', {
+     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/profile`, {
+
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -97,7 +99,8 @@ function LinktreeLayout() {
         throw new Error('Authentication required');
       }
       
-      const response = await fetch('http://localhost:5000/api/social-links/reorder', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/social-links/reorder`, {
+
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +132,8 @@ function LinktreeLayout() {
         throw new Error('Authentication required');
       }
       
-      const response = await fetch('http://localhost:5000/api/social-links', {
+     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/social-links`, {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -161,7 +165,8 @@ function LinktreeLayout() {
         throw new Error('Authentication required');
       }
       
-      const response = await fetch(`http://localhost:5000/api/social-links/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/social-links/${id}`, {
+
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -197,7 +202,8 @@ function LinktreeLayout() {
         throw new Error('Authentication required');
       }
       
-      const response = await fetch(`http://localhost:5000/api/social-links/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/social-links/${id}`, {
+
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${authToken}`
@@ -230,7 +236,8 @@ function LinktreeLayout() {
       const formData = new FormData();
       formData.append('profileImage', imageFile);
 
-      const response = await fetch('http://localhost:5000/api/profile/image', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/profile/image`, {
+
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${authToken}`
@@ -273,7 +280,8 @@ function LinktreeLayout() {
       formData.append('price', productData.price);
       formData.append('link', productData.link);
 
-      const response = await fetch('http://localhost:5000/api/products', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`, {
+
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${authToken}`
@@ -316,7 +324,8 @@ function LinktreeLayout() {
       formData.append('price', productData.price);
       formData.append('link', productData.link);
 
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, {
+
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${authToken}`
@@ -351,7 +360,8 @@ function LinktreeLayout() {
         throw new Error('Authentication required');
       }
       
-      const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, {
+
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${authToken}`
@@ -376,7 +386,8 @@ function LinktreeLayout() {
   
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/login`, {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -405,7 +416,8 @@ function LinktreeLayout() {
   
   const register = async (userData) => {
     try {
-      const response = await fetch('http://localhost:5000/api/users/register', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
