@@ -509,16 +509,49 @@ if (!fs.existsSync(uploadsDir)) {
   console.log('Created uploads directory');
 }
 
-// Serve frontend in production
+// Add error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  res.status(500).json({ error: 'Server error', message: err.message });
+});
+
+// Serve frontend in production - THIS PART WAS CAUSING THE ISSUE
 if (process.env.NODE_ENV === 'production') {
   // Serve static files from the client build directory
   app.use(express.static(path.resolve(__dirname, '../client/dist')));
   
-  // Handle any remaining requests with the React app
-  app.get('*', (req, res) => {
+  // Use a standard route instead of wildcard/catch-all
+  app.get('/app/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+  });
+  
+  // Single page application fallback route - FIXED WILDCARD ISSUE
+  app.get('/dashboard', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+  });
+  
+  app.get('/profile/*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+  });
+  
+  app.get('/login', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+  });
+  app.get('/register', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+  });
+  
+  // Add any remaining frontend routes
+  app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
 }
+
+// Add error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Global error handler:', err);
+  res.status(500).json({ error: 'Server error', message: err.message });
+});
 
 // Start server
 app.listen(PORT, () => {
