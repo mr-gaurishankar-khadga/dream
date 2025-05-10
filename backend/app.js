@@ -35,10 +35,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Connect to MongoDB - Changed database name to createrhub
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
+mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.log('Connected to MongoDB createrhub database');
 }).catch(err => {
   console.error('MongoDB connection error:', err);
@@ -509,59 +506,13 @@ if (!fs.existsSync(uploadsDir)) {
   console.log('Created uploads directory');
 }
 
-// Serve frontend in production - FIXED THE PROBLEMATIC ROUTES
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the client build directory
-  app.use(express.static(path.resolve(__dirname, '../client/dist')));
-  
-  // Define specific routes for SPA sections
-  app.get('/app', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-  });
-  
-  app.get('/dashboard', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-  });
-  
-  app.get('/profile', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-  });
-  
-  app.get('/login', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-  });
-  
-  app.get('/register', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-  });
-  
-  // Root route
-  app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-  });
-  
-  // Handle app sub-routes without wildcards
-  app.get('/app', serveIndex);
-  app.get('/app/:param', serveIndex);
-  
-  // Handle profile sub-routes without wildcards
-  app.get('/profile', serveIndex);
-  app.get('/profile/:param', serveIndex);
-  
-  // Catchall handler for any other requests that should serve the SPA
-  app.use((req, res, next) => {
-    // Only serve the SPA for non-API routes
-    if (!req.path.startsWith('/api/')) {
-      return res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-    }
-    next();
-  });
-}
+// REMOVED ALL FRONTEND SERVING CODE THAT WAS CAUSING ERRORS
+// The API endpoints above will work, but we're not trying to serve any frontend files
 
-// Helper function to serve index.html
-function serveIndex(req, res) {
-  res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
-}
+// Add a simple root route that returns a 200 OK
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'API server is running' });
+});
 
 // Global error handler
 app.use((err, req, res, next) => {
