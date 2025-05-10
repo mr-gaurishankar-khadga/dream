@@ -509,45 +509,61 @@ if (!fs.existsSync(uploadsDir)) {
   console.log('Created uploads directory');
 }
 
-// Add error handling middleware
-app.use((err, req, res, next) => {
-  console.error('Global error handler:', err);
-  res.status(500).json({ error: 'Server error', message: err.message });
-});
-
-// Serve frontend in production - THIS PART WAS CAUSING THE ISSUE
+// Serve frontend in production - FIXED THE PROBLEMATIC ROUTES
 if (process.env.NODE_ENV === 'production') {
   // Serve static files from the client build directory
   app.use(express.static(path.resolve(__dirname, '../client/dist')));
   
-  // Use a standard route instead of wildcard/catch-all
-  app.get('/app/*', (req, res) => {
+  // Define specific routes for SPA sections
+  app.get('/app', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
   
-  // Single page application fallback route - FIXED WILDCARD ISSUE
   app.get('/dashboard', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
   
-  app.get('/profile/*', (req, res) => {
+  app.get('/profile', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
   
   app.get('/login', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
+  
   app.get('/register', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
   
-  // Add any remaining frontend routes
+  // Root route
   app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
+  
+  // Handle app sub-routes without wildcards
+  app.get('/app', serveIndex);
+  app.get('/app/:param', serveIndex);
+  
+  // Handle profile sub-routes without wildcards
+  app.get('/profile', serveIndex);
+  app.get('/profile/:param', serveIndex);
+  
+  // Catchall handler for any other requests that should serve the SPA
+  app.use((req, res, next) => {
+    // Only serve the SPA for non-API routes
+    if (!req.path.startsWith('/api/')) {
+      return res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+    }
+    next();
+  });
 }
 
-// Add error handling middleware
+// Helper function to serve index.html
+function serveIndex(req, res) {
+  res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
+}
+
+// Global error handler
 app.use((err, req, res, next) => {
   console.error('Global error handler:', err);
   res.status(500).json({ error: 'Server error', message: err.message });
