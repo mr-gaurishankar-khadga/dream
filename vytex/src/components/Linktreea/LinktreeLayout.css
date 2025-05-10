@@ -1,0 +1,61 @@
+
+.app-containerr {
+  width: 100%;
+  height: 50vh;
+}
+.content-containerr {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+
+}
+
+
+
+
+.phone-frame {
+  flex: 0 0 360px;
+  height: 620px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+
+/* Responsive styling */
+@media (max-width: 1000px) {
+  .phone-frame {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .phone-frame {
+    flex: 0 0 100%;
+    height: 100%;
+    border-width: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: none;
+  }
+}
+
+
+
+@media screen and (max-width: 760px) {
+  /* Target the ProfileSection component directly with a more specific selector */
+  div[class*="ProfileSection"],
+  .ProfileSection,
+  div.app-containerr .content-containerr > div:first-child {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}

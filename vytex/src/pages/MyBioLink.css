@@ -1,0 +1,159 @@
+.biolink-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .biolink-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+  }
+  
+  .biolink-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: #111827;
+  }
+  
+  .biolink-header p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0.25rem 0 0;
+  }
+  
+  .biolink-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .biolink-sidebar {
+    width: 220px;
+    border-right: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    padding: 1rem 0;
+  }
+  
+  .biolink-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .biolink-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    color: #4b5563;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+  }
+  
+  .biolink-tab:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  .biolink-active {
+    background-color: #f3f4f6;
+    color: #2563eb;
+    font-weight: 500;
+  }
+  
+  .biolink-main-content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+  }
+  
+  .biolink-message {
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .biolink-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+  }
+  
+  .biolink-error {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+  }
+  
+  .biolink-tab-content {
+    position: relative;
+  }
+  
+  .biolink-tab-content[data-mobile-title]:before {
+    content: attr(data-mobile-title);
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .biolink-mobile-tabs {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    padding: 0.5rem;
+    z-index: 10;
+    justify-content: space-around;
+  }
+  
+  .biolink-mobile-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #6b7280;
+    border-radius: 0.25rem;
+    transition: all 0.2s;
+    font-size: 0.75rem;
+  }
+  
+  .biolink-mobile-tab.biolink-active {
+    color: #2563eb;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .biolink-sidebar {
+      display: none;
+    }
+    
+    .biolink-mobile-tabs {
+      display: flex;
+    }
+    
+    .biolink-main-content {
+      padding-bottom: 5rem; /* Make room for mobile tab bar */
+    }
+    
+    .biolink-content {
+      flex-direction: column;
+    }
+  }
