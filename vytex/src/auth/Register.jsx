@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Mail, User, Lock, Check, AlertCircle } from 'lucide-react';
 import './Register.css'
+
 const Register = ({ setAuth }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -28,7 +29,8 @@ const Register = ({ setAuth }) => {
 
   const checkUsernameAvailability = async (username) => {
     try {
-     const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/check-username/${username}`);
+      // Fixed URL - added the /api prefix that was missing
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/check-username/${username}`);
 
       const data = await response.json();
       setUsernameAvailable(data.available);
@@ -55,8 +57,8 @@ const Register = ({ setAuth }) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/users/register`, {
-
+      // Fixed URL - added the /api prefix that was missing
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

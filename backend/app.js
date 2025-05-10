@@ -506,9 +506,6 @@ if (!fs.existsSync(uploadsDir)) {
   console.log('Created uploads directory');
 }
 
-// REMOVED ALL FRONTEND SERVING CODE THAT WAS CAUSING ERRORS
-// The API endpoints above will work, but we're not trying to serve any frontend files
-
 // Add a simple root route that returns a 200 OK
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'API server is running' });
