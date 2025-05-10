@@ -1,4 +1,4 @@
-// app.js - Backend for Multi-User Linktree
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,8 +10,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
+const PORT = process.env.PORT;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware
 app.use(cors());
@@ -35,7 +35,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Connect to MongoDB - Changed database name to createrhub
-mongoose.connect('mongodb://localhost:27017/createrhub', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -392,9 +392,6 @@ app.put('/api/social-links/:id', auth, async (req, res) => {
   }
 });
 
-
-
-
 // Delete a social link
 app.delete('/api/social-links/:id', auth, async (req, res) => {
   try {
@@ -414,10 +411,6 @@ app.delete('/api/social-links/:id', auth, async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
-
-
-
-
 
 // Product routes
 // Add a product
@@ -446,11 +439,6 @@ app.post('/api/products', auth, upload.single('image'), async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
-
-
-
-
-
 
 // Update a product
 app.put('/api/products/:id', auth, upload.single('image'), async (req, res) => {
@@ -483,11 +471,6 @@ app.put('/api/products/:id', auth, upload.single('image'), async (req, res) => {
   }
 });
 
-
-
-
-
-
 // Delete a product
 app.delete('/api/products/:id', auth, async (req, res) => {
   try {
@@ -519,10 +502,21 @@ app.get('/api/check-username/:username', async (req, res) => {
   }
 });
 
+// Create uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'public', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('Created uploads directory');
+}
+
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
+  // Serve static files from the client build directory
+  app.use(express.static(path.resolve(__dirname, '../client/dist')));
+  
+  // Handle any remaining requests with the React app
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    res.sendFile(path.resolve(__dirname, '../client/dist/index.html'));
   });
 }
 
