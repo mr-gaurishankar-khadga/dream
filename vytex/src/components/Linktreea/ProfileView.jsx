@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Camera, Sparkles, ShoppingBag, Link as LinkIcon, ChevronUp, Copy, Check } from 'lucide-react';
 import SocialLink from './SocialLink';
 import ProductsSection from './ProductsSection';
+
 import './ProfileView.css';
 
 // Helper function to calculate contrast color for better accessibility
@@ -113,8 +114,15 @@ const ProfileView = ({ profileData }) => {
 
   // Generate profile link from username
   const generateProfileLink = () => {
-    const username = profileData.name.toLowerCase().replace(/\s+/g, '');
-    return `https://www.linktreea.netlify.app/${username}`;
+    // Clean up username - remove spaces and special characters
+    const username = profileData.username || 
+                     profileData.name.toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+    
+    // Get the current hostname (works in both development and production)
+    const hostname = window.location.origin;
+    
+    // Create the link - direct /:username format
+    return `${hostname}/${username}`;
   };
 
   // Copy link to clipboard

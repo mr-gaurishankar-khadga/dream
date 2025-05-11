@@ -65,328 +65,7 @@ const themeOptions = [
     linkColor: '#4bbce8',
     gradient: 'linear-gradient(135deg, #21252b 0%, #2c313a 100%)'
   },
-  {
-    id: 'theme7',
-    name: 'Coral Pink',
-    backgroundColor: '#fff0f5',
-    accentColor: '#ff4081',
-    textColor: '#3a2d33',
-    secondaryColor: '#ffe0eb',
-    linkColor: '#e91e63',
-    gradient: 'linear-gradient(135deg, #fff0f5 0%, #ffb6c9 100%)'
-  },
-  {
-    id: 'theme8',
-    name: 'Teal Breeze',
-    backgroundColor: '#f0ffff',
-    accentColor: '#009688',
-    textColor: '#263a38',
-    secondaryColor: '#e0f2f1',
-    linkColor: '#00796b',
-    gradient: 'linear-gradient(135deg, #f0ffff 0%, #b2dfdb 100%)'
-  },
   
-  // Additional 30 solid themes
-  {
-    id: 'theme9',
-    name: 'Lavender Dreams',
-    backgroundColor: '#f5f3ff',
-    accentColor: '#8a4fff',
-    textColor: '#2e2a3d',
-    secondaryColor: '#e9e4ff',
-    linkColor: '#7038e0',
-    gradient: 'linear-gradient(135deg, #f5f3ff 0%, #dfd8ff 100%)'
-  },
-  {
-    id: 'theme10',
-    name: 'Forest Green',
-    backgroundColor: '#f2f7f2',
-    accentColor: '#2e7d32',
-    textColor: '#2c3b2d',
-    secondaryColor: '#e0eee0',
-    linkColor: '#1b5e20',
-    gradient: 'linear-gradient(135deg, #f2f7f2 0%, #c8e6c9 100%)'
-  },
-  {
-    id: 'theme11',
-    name: 'Coffee Cream',
-    backgroundColor: '#f8f5f0',
-    accentColor: '#795548',
-    textColor: '#3e2723',
-    secondaryColor: '#eee5db',
-    linkColor: '#5d4037',
-    gradient: 'linear-gradient(135deg, #f8f5f0 0%, #e0d2c7 100%)'
-  },
-  {
-    id: 'theme12',
-    name: 'Slate Gray',
-    backgroundColor: '#f5f7fa',
-    accentColor: '#607d8b',
-    textColor: '#263238',
-    secondaryColor: '#eceff1',
-    linkColor: '#455a64',
-    gradient: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfd9 100%)'
-  },
-  {
-    id: 'theme13',
-    name: 'Cherry Blossom',
-    backgroundColor: '#fff9fb',
-    accentColor: '#f06292',
-    textColor: '#4a2c36',
-    secondaryColor: '#fce4ec',
-    linkColor: '#ec407a',
-    gradient: 'linear-gradient(135deg, #fff9fb 0%, #f8bbd0 100%)'
-  },
-  {
-    id: 'theme14',
-    name: 'Sky Blue',
-    backgroundColor: '#f7fbff',
-    accentColor: '#03a9f4',
-    textColor: '#01579b',
-    secondaryColor: '#e1f5fe',
-    linkColor: '#0288d1',
-    gradient: 'linear-gradient(135deg, #f7fbff 0%, #bbdefb 100%)'
-  },
-  {
-    id: 'theme15',
-    name: 'Amber Glow',
-    backgroundColor: '#fffbf0',
-    accentColor: '#ffab00',
-    textColor: '#3e2f00',
-    secondaryColor: '#fff8e1',
-    linkColor: '#ff8f00',
-    gradient: 'linear-gradient(135deg, #fffbf0 0%, #ffe082 100%)'
-  },
-  {
-    id: 'theme16',
-    name: 'Dark Charcoal',
-    backgroundColor: '#2d3436',
-    accentColor: '#00e676',
-    textColor: '#eceff1',
-    secondaryColor: '#37474f',
-    linkColor: '#69f0ae',
-    gradient: 'linear-gradient(135deg, #2d3436 0%, #37474f 100%)'
-  },
-  {
-    id: 'theme17',
-    name: 'Rose Gold',
-    backgroundColor: '#fff7f7',
-    accentColor: '#f48fb1',
-    textColor: '#4a3f3f',
-    secondaryColor: '#fce4ec',
-    linkColor: '#ec407a',
-    gradient: 'linear-gradient(135deg, #fff7f7 0%, #f8bbd0 100%)'
-  },
-  {
-    id: 'theme18',
-    name: 'Indigo Night',
-    backgroundColor: '#e8eaf6',
-    accentColor: '#3f51b5',
-    textColor: '#1a237e',
-    secondaryColor: '#c5cae9',
-    linkColor: '#303f9f',
-    gradient: 'linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%)'
-  },
-  {
-    id: 'theme19',
-    name: 'Lime Fresh',
-    backgroundColor: '#f9fbe7',
-    accentColor: '#cddc39',
-    textColor: '#33691e',
-    secondaryColor: '#f0f4c3',
-    linkColor: '#afb42b',
-    gradient: 'linear-gradient(135deg, #f9fbe7 0%, #dce775 100%)'
-  },
-  {
-    id: 'theme20',
-    name: 'Deep Sea',
-    backgroundColor: '#e0f7fa',
-    accentColor: '#00acc1',
-    textColor: '#006064',
-    secondaryColor: '#b2ebf2',
-    linkColor: '#0097a7',
-    gradient: 'linear-gradient(135deg, #e0f7fa 0%, #80deea 100%)'
-  },
-  {
-    id: 'theme21',
-    name: 'Ruby Red',
-    backgroundColor: '#ffebee',
-    accentColor: '#e53935',
-    textColor: '#b71c1c',
-    secondaryColor: '#ffcdd2',
-    linkColor: '#c62828',
-    gradient: 'linear-gradient(135deg, #ffebee 0%, #ef9a9a 100%)'
-  },
-  {
-    id: 'theme22',
-    name: 'Dark Mode',
-    backgroundColor: '#121212',
-    accentColor: '#bb86fc',
-    textColor: '#e6e6e6',
-    secondaryColor: '#1e1e1e',
-    linkColor: '#03dac6',
-    gradient: 'linear-gradient(135deg, #121212 0%, #1e1e1e 100%)'
-  },
-  {
-    id: 'theme23',
-    name: 'Sunrise Yellow',
-    backgroundColor: '#fffde7',
-    accentColor: '#fdd835',
-    textColor: '#f57f17',
-    secondaryColor: '#fff9c4',
-    linkColor: '#fbc02d',
-    gradient: 'linear-gradient(135deg, #fffde7 0%, #fff59d 100%)'
-  },
-  {
-    id: 'theme24',
-    name: 'Soft Cyan',
-    backgroundColor: '#e0f7fa',
-    accentColor: '#26c6da',
-    textColor: '#006064',
-    secondaryColor: '#b2ebf2',
-    linkColor: '#00acc1',
-    gradient: 'linear-gradient(135deg, #e0f7fa 0%, #80deea 100%)'
-  },
-  {
-    id: 'theme25',
-    name: 'Emerald Green',
-    backgroundColor: '#e8f5e9',
-    accentColor: '#43a047',
-    textColor: '#1b5e20',
-    secondaryColor: '#c8e6c9',
-    linkColor: '#2e7d32',
-    gradient: 'linear-gradient(135deg, #e8f5e9 0%, #a5d6a7 100%)'
-  },
-  {
-    id: 'theme26',
-    name: 'Burgundy',
-    backgroundColor: '#f3e5f5',
-    accentColor: '#8e24aa',
-    textColor: '#4a148c',
-    secondaryColor: '#e1bee7',
-    linkColor: '#7b1fa2',
-    gradient: 'linear-gradient(135deg, #f3e5f5 0%, #ce93d8 100%)'
-  },
-  {
-    id: 'theme27',
-    name: 'Aero Blue',
-    backgroundColor: '#e1f5fe',
-    accentColor: '#29b6f6',
-    textColor: '#01579b',
-    secondaryColor: '#b3e5fc',
-    linkColor: '#0288d1',
-    gradient: 'linear-gradient(135deg, #e1f5fe 0%, #81d4fa 100%)'
-  },
-  {
-    id: 'theme28',
-    name: 'Terracotta',
-    backgroundColor: '#fbe9e7',
-    accentColor: '#ff5722',
-    textColor: '#bf360c',
-    secondaryColor: '#ffccbc',
-    linkColor: '#e64a19',
-    gradient: 'linear-gradient(135deg, #fbe9e7 0%, #ffab91 100%)'
-  },
-  {
-    id: 'theme29',
-    name: 'Light Sage',
-    backgroundColor: '#f1f8e9',
-    accentColor: '#7cb342',
-    textColor: '#33691e',
-    secondaryColor: '#dcedc8',
-    linkColor: '#558b2f',
-    gradient: 'linear-gradient(135deg, #f1f8e9 0%, #c5e1a5 100%)'
-  },
-  {
-    id: 'theme30',
-    name: 'Gunmetal',
-    backgroundColor: '#263238',
-    accentColor: '#90a4ae',
-    textColor: '#eceff1',
-    secondaryColor: '#37474f',
-    linkColor: '#b0bec5',
-    gradient: 'linear-gradient(135deg, #263238 0%, #37474f 100%)'
-  },
-  {
-    id: 'theme31',
-    name: 'Peach Cream',
-    backgroundColor: '#fff3e0',
-    accentColor: '#ffb74d',
-    textColor: '#e65100',
-    secondaryColor: '#ffe0b2',
-    linkColor: '#ff9800',
-    gradient: 'linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%)'
-  },
-  {
-    id: 'theme32',
-    name: 'Steel Blue',
-    backgroundColor: '#e3f2fd',
-    accentColor: '#1976d2',
-    textColor: '#0d47a1',
-    secondaryColor: '#bbdefb',
-    linkColor: '#1565c0',
-    gradient: 'linear-gradient(135deg, #e3f2fd 0%, #90caf9 100%)'
-  },
-  {
-    id: 'theme33',
-    name: 'Matcha Green',
-    backgroundColor: '#e8f5e9',
-    accentColor: '#66bb6a',
-    textColor: '#1b5e20',
-    secondaryColor: '#c8e6c9',
-    linkColor: '#43a047',
-    gradient: 'linear-gradient(135deg, #e8f5e9 0%, #a5d6a7 100%)'
-  },
-  {
-    id: 'theme34',
-    name: 'Dusty Rose',
-    backgroundColor: '#fce4ec',
-    accentColor: '#ec407a',
-    textColor: '#880e4f',
-    secondaryColor: '#f8bbd0',
-    linkColor: '#d81b60',
-    gradient: 'linear-gradient(135deg, #fce4ec 0%, #f48fb1 100%)'
-  },
-  {
-    id: 'theme35',
-    name: 'Whiskey Brown',
-    backgroundColor: '#efebe9',
-    accentColor: '#8d6e63',
-    textColor: '#3e2723',
-    secondaryColor: '#d7ccc8',
-    linkColor: '#6d4c41',
-    gradient: 'linear-gradient(135deg, #efebe9 0%, #bcaaa4 100%)'
-  },
-  {
-    id: 'theme36',
-    name: 'Ice Blue',
-    backgroundColor: '#e8f1f8',
-    accentColor: '#4fc3f7',
-    textColor: '#01579b',
-    secondaryColor: '#b3e5fc',
-    linkColor: '#039be5',
-    gradient: 'linear-gradient(135deg, #e8f1f8 0%, #81d4fa 100%)'
-  },
-  {
-    id: 'theme37',
-    name: 'Olive Green',
-    backgroundColor: '#f9fbe7',
-    accentColor: '#9e9d24',
-    textColor: '#3e2723',
-    secondaryColor: '#f0f4c3',
-    linkColor: '#827717',
-    gradient: 'linear-gradient(135deg, #f9fbe7 0%, #e6ee9c 100%)'
-  },
-  {
-    id: 'theme38',
-    name: 'Plum Purple',
-    backgroundColor: '#f3e5f5',
-    accentColor: '#ab47bc',
-    textColor: '#4a148c',
-    secondaryColor: '#e1bee7',
-    linkColor: '#8e24aa',
-    gradient: 'linear-gradient(135deg, #f3e5f5 0%, #ce93d8 100%)'
-  }
 ];
 
 
@@ -545,7 +224,116 @@ const gradientThemes = [
     secondaryColor: '#6C5B7B',
     linkColor: '#f7a4b9',
     gradient: 'linear-gradient(135deg, #355C7D 0%, #6C5B7B 50%, #C06C84 100%)'
-  }
+  },
+  {
+    id: 'neon_future',
+    name: 'Neon Future',
+    backgroundColor: '#0E0B16',
+    accentColor: '#E7DFDD',
+    textColor: '#A239CA',
+    secondaryColor: '#4717F6',
+    linkColor: '#FF124F',
+    gradient: 'linear-gradient(135deg, #0E0B16 0%, #4717F6 50%, #A239CA 100%)'
+},
+
+{
+    id: 'cyber_mint',
+    name: 'Cyber Mint',
+    backgroundColor: '#151515',
+    accentColor: '#4ECCA3',
+    textColor: '#EEEEEE',
+    secondaryColor: '#232931',
+    linkColor: '#00FFF5',
+    gradient: 'linear-gradient(135deg, #151515 0%, #232931 50%, #393E46 100%)'
+},
+
+{
+    id: 'volcanic_fusion',
+    name: 'Volcanic Fusion',
+    backgroundColor: '#2D142C',
+    accentColor: '#EE4540',
+    textColor: '#EDF5E1',
+    secondaryColor: '#510A32',
+    linkColor: '#F16821',
+    gradient: 'linear-gradient(135deg, #2D142C 0%, #510A32 50%, #801336 100%)'
+},
+
+{
+    id: 'quantum_violet',
+    name: 'Quantum Violet',
+    backgroundColor: '#1A1A2E',
+    accentColor: '#C874D9',
+    textColor: '#E94560',
+    secondaryColor: '#16213E',
+    linkColor: '#A239EA',
+    gradient: 'linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%)'
+},
+
+{
+    id: 'electric_jungle',
+    name: 'Electric Jungle',
+    backgroundColor: '#222629',
+    accentColor: '#86C232',
+    textColor: '#FFFFFF',
+    secondaryColor: '#474B4F',
+    linkColor: '#61892F',
+    gradient: 'linear-gradient(135deg, #222629 0%, #474B4F 50%, #6B6E70 100%)'
+},
+
+{
+    id: 'cosmic_latte',
+    name: 'Cosmic Latte',
+    backgroundColor: '#352F44',
+    accentColor: '#FAF0E6',
+    textColor: '#DBD8E3',
+    secondaryColor: '#5C5470',
+    linkColor: '#B9B4C7',
+    gradient: 'linear-gradient(135deg, #352F44 0%, #5C5470 50%, #B9B4C7 100%)'
+},
+
+{
+    id: 'retrowave',
+    name: 'Retrowave',
+    backgroundColor: '#2B1B2D',
+    accentColor: '#FF38D1',
+    textColor: '#00FECA',
+    secondaryColor: '#411E8F',
+    linkColor: '#FE4A49',
+    gradient: 'linear-gradient(135deg, #2B1B2D 0%, #411E8F 50%, #A12568 100%)'
+},
+
+{
+    id: 'frozen_ember',
+    name: 'Frozen Ember',
+    backgroundColor: '#2C3333',
+    accentColor: '#FF5722',
+    textColor: '#E7F6F2',
+    secondaryColor: '#395B64',
+    linkColor: '#A5C9CA',
+    gradient: 'linear-gradient(135deg, #2C3333 0%, #395B64 50%, #A5C9CA 100%)'
+},
+
+{
+    id: 'matrix_code',
+    name: 'Matrix Code',
+    backgroundColor: '#000000',
+    accentColor: '#08F26E',
+    textColor: '#22EAAA',
+    secondaryColor: '#0D1B0E',
+    linkColor: '#00FF41',
+    gradient: 'linear-gradient(135deg, #000000 0%, #0D1B0E 50%, #1B392F 100%)'
+},
+
+{
+    id: 'autumn_breeze',
+    name: 'Autumn Breeze',
+    backgroundColor: '#1F2833',
+    accentColor: '#C5C6C7',
+    textColor: '#FFCB9A',
+    secondaryColor: '#45A29E',
+    linkColor: '#66FCF1',
+    gradient: 'linear-gradient(135deg, #1F2833 0%, #45A29E 50%, #66FCF1 100%)'
+}
 ];
 
 

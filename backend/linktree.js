@@ -1,14 +1,17 @@
-
 const express = require('express');
-const router = express.Router();
-const multer = require('multer');
+const mongoose = require('mongoose');
 const path = require('path');
+const multer = require('multer');
+const jwt = require('jsonwebtoken');
 const fs = require('fs');
+
+const router = express.Router();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, 'uploads');
+    const uploadDir = path.join(__dirname, 'public/uploads');
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -21,14 +24,98 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Define schemas if they don't exist in mongoose models
+const createrhubProductSchema = new mongoose.Schema({
+  imageUrl: String,
+  title: String,
+  price: Number,
+  link: String
+});
 
+const createrhubSocialLinkSchema = new mongoose.Schema({
+  platform: String,
+  url: String,
+  order: Number
+});
 
+const createrhubProfileSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CreaterhubUser',
+    required: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  name: String,
+  tagline: String,
+  profileImage: String,
+  backgroundColor: String,
+  accentColor: String,
+  products: [createrhubProductSchema],
+  socialLinks: [createrhubSocialLinkSchema],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
 
+const createrhubUserSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+// Get models if they exist, or create them
+const CreaterhubUser = mongoose.models.CreaterhubUser || mongoose.model('CreaterhubUser', createrhubUserSchema);
+const CreaterhubProfile = mongoose.models.CreaterhubProfile || mongoose.model('CreaterhubProfile', createrhubProfileSchema);
+
+// Authentication Middleware
+const auth = async (req, res, next) => {
+  try {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+    
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await CreaterhubUser.findById(decoded.userId);
+    
+    if (!user) {
+      return res.status(401).json({ error: 'Authentication failed' });
+    }
+    
+    req.user = user;
+    req.token = token;
+    next();
+  } catch (err) {
+    console.error('Auth error:', err);
+    res.status(401).json({ error: 'Authentication failed' });
+  }
+};
 
 // Get current user profile
-router.get('/profile/me', async (req, res) => {
+router.get('/profile/me', auth, async (req, res) => {
   try {
-    const profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    const profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
@@ -41,13 +128,18 @@ router.get('/profile/me', async (req, res) => {
   }
 });
 
-
-
-
-// Get profile by username (public)
+// IMPORTANT: Get profile by username (public) - MUST be before dynamic routes
 router.get('/profile/:username', async (req, res) => {
   try {
-    const profile = await req.app.locals.CreaterhubProfile.findOne({ username: req.params.username });
+    // Make sure username parameter is a simple string
+    const username = req.params.username;
+    
+    // Additional check that username is valid
+    if (!username || typeof username !== 'string' || username.includes('/')) {
+      return res.status(400).json({ error: 'Invalid username format' });
+    }
+    
+    const profile = await CreaterhubProfile.findOne({ username: username });
     
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
@@ -60,21 +152,19 @@ router.get('/profile/:username', async (req, res) => {
   }
 });
 
-
-
 // Update user profile
-router.put('/profile', async (req, res) => {
+router.put('/profile', auth, async (req, res) => {
   try {
     const { name, tagline, backgroundColor, accentColor, username } = req.body;
     
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
     
     // Check if username is being updated and if it's already taken
     if (username && username !== profile.username) {
-      const existingProfile = await req.app.locals.CreaterhubProfile.findOne({ username });
+      const existingProfile = await CreaterhubProfile.findOne({ username });
       if (existingProfile) {
         return res.status(400).json({ error: 'Username already taken' });
       }
@@ -94,10 +184,10 @@ router.put('/profile', async (req, res) => {
   }
 });
 
-
+// The rest of your routes remain the same...
 
 // Upload profile image
-router.post('/profile/image', upload.single('profileImage'), async (req, res) => {
+router.post('/profile/image', auth, upload.single('profileImage'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
@@ -105,7 +195,7 @@ router.post('/profile/image', upload.single('profileImage'), async (req, res) =>
     
     const imageUrl = `/uploads/${req.file.filename}`;
     
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
@@ -120,16 +210,13 @@ router.post('/profile/image', upload.single('profileImage'), async (req, res) =>
   }
 });
 
-
-
-
 // Social Links
 // Add a new social link
-router.post('/social-links', async (req, res) => {
+router.post('/social-links', auth, async (req, res) => {
   try {
     const { platform, url } = req.body;
     
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
@@ -153,14 +240,12 @@ router.post('/social-links', async (req, res) => {
   }
 });
 
-
-
 // Update social links order
-router.put('/social-links/reorder', async (req, res) => {
+router.put('/social-links/reorder', auth, async (req, res) => {
   try {
     const { links } = req.body;
     
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
@@ -182,11 +267,11 @@ router.put('/social-links/reorder', async (req, res) => {
 });
 
 // Update a social link
-router.put('/social-links/:id', async (req, res) => {
+router.put('/social-links/:id', auth, async (req, res) => {
   try {
     const { platform, url } = req.body;
     
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
@@ -208,9 +293,9 @@ router.put('/social-links/:id', async (req, res) => {
 });
 
 // Delete a social link
-router.delete('/social-links/:id', async (req, res) => {
+router.delete('/social-links/:id', auth, async (req, res) => {
   try {
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
@@ -229,11 +314,11 @@ router.delete('/social-links/:id', async (req, res) => {
 
 // Product routes
 // Add a product
-router.post('/products', upload.single('image'), async (req, res) => {
+router.post('/products', auth, upload.single('image'), async (req, res) => {
   try {
     const { title, price, link } = req.body;
     
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
@@ -256,11 +341,11 @@ router.post('/products', upload.single('image'), async (req, res) => {
 });
 
 // Update a product
-router.put('/products/:id', upload.single('image'), async (req, res) => {
+router.put('/products/:id', auth, upload.single('image'), async (req, res) => {
   try {
     const { title, price, link } = req.body;
     
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }
@@ -287,9 +372,9 @@ router.put('/products/:id', upload.single('image'), async (req, res) => {
 });
 
 // Delete a product
-router.delete('/products/:id', async (req, res) => {
+router.delete('/products/:id', auth, async (req, res) => {
   try {
-    let profile = await req.app.locals.CreaterhubProfile.findOne({ userId: req.user._id });
+    let profile = await CreaterhubProfile.findOne({ userId: req.user._id });
     if (!profile) {
       return res.status(404).json({ error: 'Profile not found' });
     }

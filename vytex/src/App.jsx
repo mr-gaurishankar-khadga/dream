@@ -2,16 +2,14 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from "react-router-dom";
 import "./App.css";
 
-
 import Layout from "./Layout";
 import PageContent from "./PageContent";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import LinktreeLayout from "./components/Linktreea/LinktreeLayout";
 import Loading from "./components/Loading";
-import Profile from "./components/Profile"; 
-
-
+import Profile from "./components/Profile";
+import PublicProfile from "./components/Linktreea/PublicProfile"; 
 
 function RouteContent() {
   const { pageId, subPageId } = useParams();
@@ -120,6 +118,9 @@ function App() {
                 )
               }
             />
+
+            {/* Public profile route by username */}
+            <Route path="/:username" element={<PublicProfile />} />
           </Routes>
         </main>
       </div>

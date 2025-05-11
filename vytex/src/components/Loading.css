@@ -1,84 +1,147 @@
+.neo-futuristic-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+}
 
+.neo-futuristic-loader__container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  perspective: 800px;
+}
 
-.loader-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: #ffffff;
-    font-family: "Arial", sans-serif;
+.neo-futuristic-loader__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.neo-futuristic-loader__ring--outer {
+  width: 100px;
+  height: 100px;
+  border-top: 2px solid #3498db;
+  border-left: 2px solid transparent;
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid #3498db;
+  animation: neo-futuristic-spin-outer 1.5s linear infinite;
+}
+
+.neo-futuristic-loader__ring--middle {
+  width: 70px;
+  height: 70px;
+  border-top: 2px solid transparent;
+  border-left: 2px solid #9b59b6;
+  border-right: 2px solid #9b59b6;
+  border-bottom: 2px solid transparent;
+  animation: neo-futuristic-spin-middle 1.2s linear infinite reverse;
+}
+
+.neo-futuristic-loader__ring--inner {
+  width: 40px;
+  height: 40px;
+  border-top: 2px solid #2ecc71;
+  border-left: 2px solid #2ecc71;
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  animation: neo-futuristic-spin-inner 1s linear infinite;
+}
+
+.neo-futuristic-loader__dot {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #f39c12;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px #f39c12;
+  animation: neo-futuristic-pulse 1.5s ease-in-out infinite;
+}
+
+.neo-futuristic-loader__pulse {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: transparent;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 rgba(243, 156, 18, 0.5);
+  animation: neo-futuristic-ripple 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.neo-futuristic-loader__glow {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+  border-radius: 50%;
+  animation: neo-futuristic-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes neo-futuristic-spin-outer {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
-  
-  .loader {
-    position: relative;
-    width: 100px;
-    height: 100px;
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
-  
-  .circle {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 4px solid transparent;
-    animation: rotate 1.5s linear infinite, pulse 2s ease-in-out infinite;
+}
+
+@keyframes neo-futuristic-spin-middle {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
-  
-  .circle:nth-child(1) {
-    border-top-color: #ffdd00;
-    animation-delay: 0s;
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
-  
-  .circle:nth-child(2) {
-    border-top-color: #ffd700;
-    animation-delay: 0.3s;
+}
+
+@keyframes neo-futuristic-spin-inner {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
-  
-  .circle:nth-child(3) {
-    border-top-color: #ffbf00;
-    animation-delay: 0.6s;
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
-  
-  .circle:nth-child(4) {
-    border-top-color: #ffa500;
-    animation-delay: 0.9s;
+}
+
+@keyframes neo-futuristic-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.7;
   }
-  
-  @keyframes rotate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  50% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
-  
-  @keyframes pulse {
-    0%, 100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.1);
-    }
+}
+
+@keyframes neo-futuristic-ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(243, 156, 18, 0.7);
   }
-  
-  .loader-text {
-    margin-top: 20px;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #ffdd00;
-    animation: fadeIn 3s infinite alternate;
+  100% {
+    box-shadow: 0 0 0 40px rgba(243, 156, 18, 0);
   }
-  
-  @keyframes fadeIn {
-    0% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
+}
+
+@keyframes neo-futuristic-glow {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.95);
   }
-  
+  100% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
