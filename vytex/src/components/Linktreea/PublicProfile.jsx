@@ -6,12 +6,9 @@ import Loading from '../Loading';
 
 // Get API URL from environment or use default
 // Fix: Use import.meta.env for Vite or window.__ENV__ pattern as fallback
-const API_URL = import.meta.env?.VITE_BACKEND_URL || 
-                window.__ENV__?.VITE_BACKEND_URL || 
-                'http://localhost:5000/api';
-
-
-                console.log(API_URL)
+const API_URL = import.meta.env?.VITE_API_URL || 
+                window.__ENV__?.API_URL || 
+                'https://dream-1-33wv.onrender.com/api';
 
 const PublicProfile = () => {
   const { username } = useParams();
